@@ -14,12 +14,12 @@ import {
 const router = Router();
 
 router.get('/query', getUserByQuery);
-router.get('/:id', getUserById);
+router.get('/id/:id', getUserById);
 router.post('/generate-token', generateCustomToken);
 router.get('/verify-token/:idToken', verifyCustomToken);
-router.post('/', createUser);
-router.get('/', getAllUsers);
-router.put('/:id', updateUser);
-router.delete('/:id', deleteUser);
+router.post('/create', createUser);
+router.get('/get-all', getAllUsers);
+router.put('/update/:id', updateUser);
+router.delete('/delete/:id', deleteUser);
 
 export default router;
