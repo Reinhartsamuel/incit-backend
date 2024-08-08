@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyCustomToken = exports.generateCustomToken = exports.updateUser = exports.getUserById = exports.getAllUsers = exports.deleteUser = exports.createUser = void 0;
+exports.verifyCustomToken = exports.generateCustomToken = exports.updateUser = exports.getUserByQuery = exports.getUserById = exports.getAllUsers = exports.deleteUser = exports.createUser = void 0;
 const users_1 = require("../models/users");
 const firebase_1 = __importDefault(require("../config/firebase"));
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -70,7 +70,7 @@ const getUserById = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         const users = yield users_1.Users.findByPk(req.params.id);
         return res
             .status(200)
-            .json({ message: 'User successfully retrieved', data: users });
+            .json({ message: 'Get user by ID successfully retrieved', data: users });
     }
     catch (error) {
         return res.json({
@@ -80,6 +80,24 @@ const getUserById = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.getUserById = getUserById;
+const getUserByQuery = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log(req.query, 'this is the query');
+        const users = yield users_1.Users.findAll({
+            where: Object.assign({}, req.query),
+        });
+        return res
+            .status(200)
+            .json({ message: 'Query user successfully retrieved', data: users });
+    }
+    catch (error) {
+        return res.json({
+            message: 'error',
+            error: error.message,
+        });
+    }
+});
+exports.getUserByQuery = getUserByQuery;
 const updateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;

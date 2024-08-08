@@ -54,7 +54,24 @@ export const getUserById: RequestHandler = async (req, res, next) => {
     const users: Users | null = await Users.findByPk(req.params.id);
     return res
       .status(200)
-      .json({ message: 'User successfully retrieved', data: users });
+      .json({ message: 'Get user by ID successfully retrieved', data: users });
+  } catch (error: Error | any) {
+    return res.json({
+      message: 'error',
+      error: error.message,
+    });
+  }
+};
+
+export const getUserByQuery: RequestHandler = async (req, res, next) => {
+  try {
+    console.log(req.query, 'this is the query');
+    const users: Users[] | null = await Users.findAll({
+      where: { ...req.query },
+    });
+    return res
+      .status(200)
+      .json({ message: 'Query user successfully retrieved', data: users });
   } catch (error: Error | any) {
     return res.json({
       message: 'error',
