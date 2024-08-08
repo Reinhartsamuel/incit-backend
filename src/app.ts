@@ -4,10 +4,12 @@ import userRoutes from './routes/users';
 import emailRoutes from './routes/email';
 import connection from './db/config';
 import dotenv  from "dotenv"
+const cors = require('cors')
 
 dotenv.config();
 
 const app = express();
+app.use(cors())
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use('/users', userRoutes);
