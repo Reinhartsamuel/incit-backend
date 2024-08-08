@@ -1,18 +1,17 @@
 import { json, urlencoded } from 'body-parser';
 import express from 'express';
 import userRoutes from './routes/users';
+import emailRoutes from './routes/email';
 import connection from './db/config';
 import dotenv  from "dotenv"
 
 dotenv.config();
 
-console.log('env host:::', process.env.DB_HOST)
-
 const app = express();
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use('/users', userRoutes);
-app.use('email',userRoutes);
+app.use('/email', emailRoutes);
 
 app.use((
     err:Error,

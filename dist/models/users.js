@@ -33,7 +33,7 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING,
-        allowNull: false,
+        allowNull: true,
     })
 ], Users.prototype, "phone_number", void 0);
 __decorate([
@@ -42,6 +42,24 @@ __decorate([
         allowNull: true,
     })
 ], Users.prototype, "last_login", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: true,
+    })
+], Users.prototype, "firebase_uid", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.BOOLEAN,
+        allowNull: true,
+    })
+], Users.prototype, "email_verified", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        allowNull: true,
+    })
+], Users.prototype, "number_of_login", void 0);
 exports.Users = Users = __decorate([
     (0, sequelize_typescript_1.Table)({
         timestamps: true,

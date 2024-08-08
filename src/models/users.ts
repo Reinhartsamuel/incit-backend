@@ -33,7 +33,7 @@ export class Users extends Model {
 
     @Column({
         type : DataType.STRING,
-        allowNull : false,
+        allowNull : true,
     })
     phone_number!: string;
 
@@ -43,4 +43,22 @@ export class Users extends Model {
         allowNull : true,
     })
     last_login!: string;
+
+    @Column({
+        type : DataType.STRING,
+        allowNull : true,
+    })
+    firebase_uid!: string;
+
+    @Column({
+        type : DataType.BOOLEAN,
+        allowNull : true,
+    })
+    email_verified!: boolean;
+
+    @Column({
+        type : DataType.INTEGER,
+        allowNull : true,
+    })
+    number_of_login!: number;
 }

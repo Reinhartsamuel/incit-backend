@@ -2,14 +2,18 @@ import { Router } from 'express';
 import {
     createUser,
     deleteUser,
+    generateCustomToken,
     getAllUsers,
     getUserById,
-    updateUser
+    updateUser,
+    verifyCustomToken
 } from '../controller/users';
 
 
 const router = Router();
 
+router.post('/generate-token', generateCustomToken);
+router.get('/verify-token/:idToken', verifyCustomToken);
 router.post('/', createUser);
 router.get('/', getAllUsers);
 router.get('/:id', getUserById);

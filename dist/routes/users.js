@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const users_1 = require("../controller/users");
 const router = (0, express_1.Router)();
+router.post('/generate-token', users_1.generateCustomToken);
+router.get('/verify-token/:idToken', users_1.verifyCustomToken);
 router.post('/', users_1.createUser);
 router.get('/', users_1.getAllUsers);
 router.get('/:id', users_1.getUserById);

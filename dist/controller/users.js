@@ -8,50 +8,129 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.getUserById = exports.getAllUsers = exports.deleteUser = exports.createUser = void 0;
+exports.verifyCustomToken = exports.generateCustomToken = exports.updateUser = exports.getUserById = exports.getAllUsers = exports.deleteUser = exports.createUser = void 0;
 const users_1 = require("../models/users");
+const firebase_1 = __importDefault(require("../config/firebase"));
 const createUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield users_1.Users.create(Object.assign({}, req.body));
-    return res
-        .status(201)
-        .json({ message: 'User successfully created', data: user });
+    try {
+        const user = yield users_1.Users.create(Object.assign({}, req.body));
+        return res
+            .status(201)
+            .json({ message: 'User successfully created', data: user });
+    }
+    catch (error) {
+        return res.json({
+            message: 'error',
+            error: error.message,
+        });
+    }
 });
 exports.createUser = createUser;
 const deleteUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const deleteUser = yield users_1.Users.findByPk(req.params.id);
-    yield users_1.Users.destroy({
-        where: {
-            id: req.params.id,
-        },
-    });
-    return res
-        .status(200)
-        .json({ message: 'User successfully deleted', data: deleteUser });
+    try {
+        const deleteUser = yield users_1.Users.findByPk(req.params.id);
+        yield users_1.Users.destroy({
+            where: {
+                id: req.params.id,
+            },
+        });
+        return res
+            .status(200)
+            .json({ message: 'User successfully deleted', data: deleteUser });
+    }
+    catch (error) {
+        return res.json({
+            message: 'error',
+            error: error.message,
+        });
+    }
 });
 exports.deleteUser = deleteUser;
 const getAllUsers = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const allUsers = yield users_1.Users.findAll();
-    return res
-        .status(200)
-        .json({ messaeg: 'Users successfully retrieved', data: allUsers });
+    try {
+        const allUsers = yield users_1.Users.findAll();
+        return res
+            .status(200)
+            .json({ messaeg: 'Users successfully retrieved', data: allUsers });
+    }
+    catch (error) {
+        return res.json({
+            message: 'error',
+            error: error.message,
+        });
+    }
 });
 exports.getAllUsers = getAllUsers;
 const getUserById = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield users_1.Users.findByPk(req.params.id);
-    return res
-        .status(200)
-        .json({ message: 'User successfully retrieved', data: users });
+    try {
+        const users = yield users_1.Users.findByPk(req.params.id);
+        return res
+            .status(200)
+            .json({ message: 'User successfully retrieved', data: users });
+    }
+    catch (error) {
+        return res.json({
+            message: 'error',
+            error: error.message,
+        });
+    }
 });
 exports.getUserById = getUserById;
 const updateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    yield users_1.Users.update(Object.assign({}, req.body), {
-        where: { id },
-    });
-    const updatedUsers = yield users_1.Users.findByPk(id);
-    return res
-        .status(200)
-        .json({ message: 'User successfully updated', data: updatedUsers });
+    try {
+        const { id } = req.params;
+        yield users_1.Users.update(Object.assign({}, req.body), {
+            where: { id },
+        });
+        const updatedUsers = yield users_1.Users.findByPk(id);
+        return res
+            .status(200)
+            .json({ message: 'User successfully updated', data: updatedUsers });
+    }
+    catch (error) {
+        return res.json({
+            message: 'error',
+            error: error.message,
+        });
+    }
 });
 exports.updateUser = updateUser;
+const generateCustomToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { uid } = req.body;
+        const customToken = yield firebase_1.default.auth().createCustomToken(uid);
+        console.log(customToken, 'customToken');
+        return res
+            .status(200)
+            .json({ message: 'Custom token generated', data: customToken });
+    }
+    catch (error) {
+        return res.json({
+            message: 'error',
+            error: error.message,
+        });
+    }
+});
+exports.generateCustomToken = generateCustomToken;
+const verifyCustomToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { idToken } = req.params;
+        const decodedToken = yield firebase_1.default.auth().verifyIdToken(idToken);
+        const uid = decodedToken.uid;
+        console.log('the uid after decoded:', uid);
+        return res
+            .status(200)
+            .json({ message: 'Custom token verified', data: decodedToken });
+    }
+    catch (error) {
+        return res.json({
+            message: 'error',
+            error: error.message,
+        });
+    }
+});
+exports.verifyCustomToken = verifyCustomToken;
