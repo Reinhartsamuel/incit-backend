@@ -153,7 +153,7 @@ const verifyCustomToken = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         const decodedToken = yield firebase_1.default.auth().verifyIdToken(idToken);
         const uid = decodedToken.uid;
         const customToken = yield firebase_1.default.auth().createCustomToken(uid);
-        console.log('the uid after decoded:', uid);
+        // console.log('the uid after decoded:', uid);
         // Based on firebase uid, get user and check if email is verified
         // if email is not verified, update email_verified to true
         const users = yield users_1.Users.findAll({

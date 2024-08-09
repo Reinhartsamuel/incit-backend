@@ -1,7 +1,7 @@
 import { json, urlencoded } from 'body-parser';
 import express from 'express';
 import userRoutes from './routes/users';
-import emailRoutes from './routes/email';
+import analyticsRoutes from './routes/analytics';
 import connection from './db/config';
 import dotenv  from "dotenv"
 const cors = require('cors')
@@ -13,7 +13,7 @@ app.use(cors())
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use('/users', userRoutes);
-app.use('/email', emailRoutes);
+app.use('/analytics', analyticsRoutes);
 
 app.use((
     err:Error,

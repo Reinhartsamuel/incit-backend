@@ -139,7 +139,7 @@ export const verifyCustomToken: RequestHandler = async (req, res, next) => {
     const decodedToken = await adminFirebase.auth().verifyIdToken(idToken);
     const uid = decodedToken.uid;
     const customToken = await adminFirebase.auth().createCustomToken(uid);
-    console.log('the uid after decoded:', uid);
+    // console.log('the uid after decoded:', uid);
 
     // Based on firebase uid, get user and check if email is verified
     // if email is not verified, update email_verified to true
