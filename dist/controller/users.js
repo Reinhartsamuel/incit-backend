@@ -131,7 +131,7 @@ const generateCustomToken = (req, res, next) => __awaiter(void 0, void 0, void 0
             to: [{ name, email }],
             subject: 'Verify Your INCIT Account',
             htmlContent: `<p>Hi, ${name},<br /> thank you for signing up on INCIT. Please click link below to verify your email address.</p><br />
-        <a style='color:blue; text-decoration:underline; font-weight:bold; cursor:pointer' href="http://localhost:3000/users/verify-token/${token}">Verify Email</a>`,
+        <a style='color:blue; text-decoration:underline; font-weight:bold; cursor:pointer' href="https://striking-illumination-production.up.railway.app/users/verify-token/${token}">Verify Email</a>`,
         });
         return res
             .status(200)
